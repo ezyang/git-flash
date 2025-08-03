@@ -1,12 +1,16 @@
 [project]
-name = "YOUR_PROJECT"
+name = "git-flash"
 version = "0.1.0"
-description = "YOUR_DESCRIPTION"
+description = "Command line tool for quickly creating detached git worktree checkouts."
 readme = "README.md"
 requires-python = ">=3.12"
 license = {text = "MIT"}
 dependencies = [
+    "click>=8.1",
 ]
+
+[project.scripts]
+"git-flash" = "git_flash.cli:main"
 
 [build-system]
 requires = ["hatchling"]
@@ -31,7 +35,7 @@ dev-dependencies = [
 
 [tool.pyrefly]
 project-includes = [
-    "YOUR_PROJECT",
+    "git_flash",
     "tests",
 ]
 project-excludes = [
