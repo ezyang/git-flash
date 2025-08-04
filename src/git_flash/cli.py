@@ -39,6 +39,8 @@ def _ensure_global_repo(url: str, repo_path: Path) -> None:
 
 def _worktree_add(repo_path: Path, dest: Path, ref: str) -> None:
     dest.parent.mkdir(parents=True, exist_ok=True)
+    if dest.exists():
+        return
     _run(["git", "-C", str(repo_path), "worktree", "add", "--detach", str(dest), ref])
 
 
