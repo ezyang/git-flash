@@ -34,7 +34,7 @@ def _ensure_global_repo(url: str, repo_path: Path) -> None:
         repo_path.parent.mkdir(parents=True, exist_ok=True)
         _run(["git", "clone", "--bare", url, str(repo_path)])
     else:
-        _run(["git", "-C", str(repo_path), "fetch", "--all", "--tags"])
+        _run(["git", "-C", str(repo_path), "fetch", "--all", "--tags", "--force"])
 
 
 def _worktree_add(repo_path: Path, dest: Path, ref: str) -> None:
