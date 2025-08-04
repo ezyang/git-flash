@@ -52,9 +52,12 @@ def _get_submodules(dest: Path) -> list[tuple[str, str, str]]:
     for name in config.sections():
         path = config[name]["path"]
         url = config[name]["url"]
-        commit = subprocess.check_output(
-            ["git", "rev-parse", f"HEAD:{path}"], cwd=dest, text=True
-        ).strip()
+        try:
+            commit = subprocess.check_output(
+                ["git", "rev-parse", f"HEAD:{path}"], cwd=dest, text=True
+            ).strip()
+        except subprocess.CalledProcessError:
+            continue
         subs.append((path, url, commit))
     return subs
 
