@@ -35,7 +35,7 @@ dev-dependencies = [
 
 [tool.pyrefly]
 project-includes = [
-    "git_flash",
+    "src/git_flash",
     "tests",
 ]
 project-excludes = [
