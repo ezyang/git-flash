@@ -58,7 +58,10 @@ async def _ensure_global_repo(url: str, repo_path: Path) -> None:
 async def _worktree_add(repo_path: Path, dest: Path, ref: str) -> None:
     dest.parent.mkdir(parents=True, exist_ok=True)
     if dest.exists():
-        return
+        if dest.is_dir() and not any(dest.iterdir()):
+            dest.rmdir()
+        else:
+            return
     await _run(
         ["git", "-C", str(repo_path), "worktree", "add", "--detach", str(dest), ref]
     )
