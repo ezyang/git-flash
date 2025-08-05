@@ -1,3 +1,4 @@
+import asyncio
 import subprocess
 import sys
 from pathlib import Path
@@ -34,5 +35,5 @@ def test_missing_submodule_is_ignored(tmp_path: Path) -> None:
     _git(["commit", "-m", "add submodule"], main_repo)
 
     dest = tmp_path / "checkout"
-    flash(main_repo.as_uri(), dest)
+    asyncio.run(flash(main_repo.as_uri(), dest))
     assert dest.exists()

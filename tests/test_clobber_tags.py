@@ -1,3 +1,4 @@
+import asyncio
 import subprocess
 import sys
 from pathlib import Path
@@ -23,7 +24,7 @@ def test_tags_are_clobbered(tmp_path: Path) -> None:
     _git(["tag", "foo"], origin)
 
     dest1 = tmp_path / "dest1"
-    flash(origin.as_uri(), dest1)
+    asyncio.run(flash(origin.as_uri(), dest1))
 
     (origin / "file.txt").write_text("two")
     _git(["add", "file.txt"], origin)
@@ -31,7 +32,7 @@ def test_tags_are_clobbered(tmp_path: Path) -> None:
     _git(["tag", "-f", "foo"], origin)
 
     dest2 = tmp_path / "dest2"
-    flash(origin.as_uri(), dest2)
+    asyncio.run(flash(origin.as_uri(), dest2))
 
     _, repo_path = cli._parse_repo(origin.as_uri())
     tag_commit = subprocess.check_output(
