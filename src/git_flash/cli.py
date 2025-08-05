@@ -63,7 +63,7 @@ async def _worktree_add(repo_path: Path, dest: Path, ref: str) -> None:
         else:
             return
     await _run(
-        ["git", "-C", str(repo_path), "worktree", "add", "--detach", str(dest), ref]
+        ["git", "-C", str(repo_path), "worktree", "add", "-f", "--detach", str(dest), ref]
     )
 
 
