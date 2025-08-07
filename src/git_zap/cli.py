@@ -9,7 +9,7 @@ from typing import Iterable
 
 import click
 
-GLOBAL_STORE = Path.home() / ".local" / "share" / "git-flash"
+GLOBAL_STORE = Path.home() / ".local" / "share" / "git-zap"
 
 
 async def _run(args: Iterable[str], cwd: Path | None = None) -> None:
@@ -85,13 +85,13 @@ async def _get_submodules(dest: Path) -> list[tuple[str, str, str]]:
     return subs
 
 
-async def flash(repo: str, destination: Path, ref: str | None = None) -> None:
+async def zap(repo: str, destination: Path, ref: str | None = None) -> None:
     url, repo_path = _parse_repo(repo)
     await _ensure_global_repo(url, repo_path)
     await _worktree_add(repo_path, destination, ref or "HEAD")
     subs = await _get_submodules(destination)
     await asyncio.gather(
-        *(flash(url, destination / path, commit) for path, url, commit in subs)
+        *(zap(url, destination / path, commit) for path, url, commit in subs)
     )
 
 
@@ -99,6 +99,6 @@ async def flash(repo: str, destination: Path, ref: str | None = None) -> None:
 @click.argument("repo")
 @click.argument("destination")
 def main(repo: str, destination: str) -> None:
-    """Flash REPO into DESTINATION using git worktrees."""
+    """Zap REPO into DESTINATION using git worktrees."""
     dest = Path(destination).expanduser().resolve()
-    asyncio.run(flash(repo, dest))
+    asyncio.run(zap(repo, dest))

@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 2
 requires-python = ">=3.12"
 
 [[package]]
@@ -33,7 +33,7 @@ wheels = [
 ]
 
 [[package]]
-name = "git-flash"
+name = "git-zap"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [

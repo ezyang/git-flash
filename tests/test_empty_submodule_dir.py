@@ -4,8 +4,8 @@ import sys
 from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[1] / "src"))
-import git_flash.cli as cli  # noqa: E402
-from git_flash.cli import flash  # noqa: E402
+import git_zap.cli as cli  # noqa: E402
+from git_zap.cli import zap  # noqa: E402
 
 
 def _git(args, cwd: Path) -> None:
@@ -39,7 +39,7 @@ def test_empty_submodule_dir_is_replaced(tmp_path: Path) -> None:
     _git(["commit", "-m", "add submodule"], main_repo)
 
     dest = tmp_path / "checkout"
-    asyncio.run(flash(main_repo.as_uri(), dest))
+    asyncio.run(zap(main_repo.as_uri(), dest))
 
     output = subprocess.check_output(
         ["git", "submodule", "update", "--init", "--recursive"],

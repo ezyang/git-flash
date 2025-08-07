@@ -4,8 +4,8 @@ import sys
 from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[1] / "src"))
-import git_flash.cli as cli
-from git_flash.cli import flash
+import git_zap.cli as cli
+from git_zap.cli import zap
 
 
 def _git(args, cwd: Path) -> None:
@@ -35,5 +35,5 @@ def test_missing_submodule_is_ignored(tmp_path: Path) -> None:
     _git(["commit", "-m", "add submodule"], main_repo)
 
     dest = tmp_path / "checkout"
-    asyncio.run(flash(main_repo.as_uri(), dest))
+    asyncio.run(zap(main_repo.as_uri(), dest))
     assert dest.exists()

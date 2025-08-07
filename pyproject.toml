@@ -1,5 +1,5 @@
 [project]
-name = "git-flash"
+name = "git-zap"
 version = "0.1.0"
 description = "Command line tool for quickly creating detached git worktree checkouts."
 readme = "README.md"
@@ -10,7 +10,7 @@ dependencies = [
 ]
 
 [project.scripts]
-"git-flash" = "git_flash.cli:main"
+"git-zap" = "git_zap.cli:main"
 
 [build-system]
 requires = ["hatchling"]
@@ -35,7 +35,7 @@ dev-dependencies = [
 
 [tool.pyrefly]
 project-includes = [
-    "src/git_flash",
+    "src/git_zap",
     "tests",
 ]
 project-excludes = [

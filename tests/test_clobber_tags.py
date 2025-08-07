@@ -4,8 +4,8 @@ import sys
 from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[1] / "src"))
-import git_flash.cli as cli
-from git_flash.cli import flash
+import git_zap.cli as cli
+from git_zap.cli import zap
 
 
 def _git(args, cwd: Path) -> None:
@@ -24,7 +24,7 @@ def test_tags_are_clobbered(tmp_path: Path) -> None:
     _git(["tag", "foo"], origin)
 
     dest1 = tmp_path / "dest1"
-    asyncio.run(flash(origin.as_uri(), dest1))
+    asyncio.run(zap(origin.as_uri(), dest1))
 
     (origin / "file.txt").write_text("two")
     _git(["add", "file.txt"], origin)
@@ -32,7 +32,7 @@ def test_tags_are_clobbered(tmp_path: Path) -> None:
     _git(["tag", "-f", "foo"], origin)
 
     dest2 = tmp_path / "dest2"
-    asyncio.run(flash(origin.as_uri(), dest2))
+    asyncio.run(zap(origin.as_uri(), dest2))
 
     _, repo_path = cli._parse_repo(origin.as_uri())
     tag_commit = subprocess.check_output(
