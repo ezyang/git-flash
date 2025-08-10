@@ -43,16 +43,16 @@ def _parse_repo(repo: str) -> tuple[str, Path]:
         if name.endswith(".git"):
             name = name[:-4]
         url = f"https://github.com/{owner}/{name}.git"
-        path = GLOBAL_STORE / "github" / owner / f"{name}.git"
+        path = GLOBAL_STORE / "github" / owner / f"{name}"
     return url, path
 
 
 async def _ensure_global_repo(url: str, repo_path: Path) -> None:
     if not repo_path.exists():
         repo_path.parent.mkdir(parents=True, exist_ok=True)
-        await _run(["git", "clone", "--bare", url, str(repo_path)])
+        await _run(["git", "clone", url, str(repo_path)])
     else:
-        await _run(["git", "-C", str(repo_path), "fetch", "--all", "--tags", "--force"])
+        await _run(["git", "-C", str(repo_path), "fetch"])
 
 
 async def _worktree_add(repo_path: Path, dest: Path, ref: str) -> None:
