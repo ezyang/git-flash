@@ -42,7 +42,7 @@ def _parse_repo(repo: str) -> tuple[str, Path]:
         owner, name = repo.split("/", 1)
         if name.endswith(".git"):
             name = name[:-4]
-        url = f"https://github.com/{owner}/{name}.git"
+        url = f"git@github.com:{owner}/{name}.git"
         path = GLOBAL_STORE / "github" / owner / f"{name}"
     return url, path
 
