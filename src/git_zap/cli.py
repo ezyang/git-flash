@@ -93,6 +93,8 @@ async def zap(repo: str, destination: Path, ref: str | None = None) -> None:
     await asyncio.gather(
         *(zap(url, destination / path, commit) for path, url, commit in subs)
     )
+    if subs:
+        await _run(["git", "submodule", "update", "--init"], cwd=destination)
 
 
 @click.command()
